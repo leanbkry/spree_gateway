@@ -1,9 +1,9 @@
 module Spree
   class Gateway::Wirecard < Gateway
 
-    preference :public_key, :string
-    preference :private_key, :string
-    preference :currency, :string, :default => 'EUR'
+    preference :login, :string
+    preference :password, :string
+    preference :signature, :string
 
     def provider_class
       ActiveMerchant::Billing::WirecardGateway
