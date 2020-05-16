@@ -28,6 +28,7 @@ Supported payment gateways:
 * Spreedly
 * Stripe (with Stripe Elements)
 * USAePay
+* Wirecard
 * Worldpay (previously Cardsave)
 
 For`PayPal` support head over to [braintree_vzero](https://github.com/spree-contrib/spree_braintree_vzero) extension.
