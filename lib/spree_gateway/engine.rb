@@ -32,6 +32,7 @@ module SpreeGateway
       app.config.spree.payment_methods << Spree::Gateway::StripeGateway
       app.config.spree.payment_methods << Spree::Gateway::StripeElementsGateway
       app.config.spree.payment_methods << Spree::Gateway::StripeApplePayGateway
+      app.config.spree.payment_methods << Spree::Gateway::StripeAchGateway
       app.config.spree.payment_methods << Spree::Gateway::UsaEpayTransaction
       app.config.spree.payment_methods << Spree::Gateway::Wirecard
       app.config.spree.payment_methods << Spree::Gateway::Worldpay
@@ -43,6 +44,12 @@ module SpreeGateway
       end
       Dir.glob(File.join(File.dirname(__FILE__), '../../lib/active_merchant/**/*_decorator*.rb')) do |c|
         Rails.application.config.cache_classes ? require(c) : load(c)
+      end
+
+      if self.frontend_available?
+        Dir.glob(File.join(File.dirname(__FILE__), '../../lib/spree_frontend/controllers/spree/*_decorator*.rb')) do |c|
+          Rails.application.config.cache_classes ? require(c) : load(c)
+        end
       end
     end
 
@@ -61,6 +68,7 @@ module SpreeGateway
     paths['app/controllers'] << 'lib/controllers'
 
     if self.frontend_available?
+      paths["app/controllers"] << "lib/spree_frontend/controllers"
       paths["app/views"] << "lib/views/frontend"
     end
 
